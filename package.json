@@ -2,7 +2,7 @@
   "name": "sniptr",
   "version": "0.1.0",
   "private": false,
-  "homepage": "http://otaviotech.github.io/sniptr",
+  "homepage": "https://otaviotech.github.io/sniptr",
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
     "@testing-library/jest-dom": "^4.2.4",
