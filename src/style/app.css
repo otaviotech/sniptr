@@ -1,0 +1,26 @@
+@import "~antd/dist/antd.css";
+
+html {
+  font-family: "Source Sans Pro";
+}
+
+body {
+  font-family: inherit;
+}
+
+.ant-layout-header {
+  background-color: #fff;
+  box-shadow: 4px 4px 11px 2px rgba(179, 179, 179, 0.1);
+}
+
+.ant-layout-header h1 {
+  /* color: #fff; */
+}
+
+.ant-layout-content {
+  padding: 30px 50px;
+}
+
+.ant-card {
+  box-shadow: 4px 4px 11px 2px rgba(179, 179, 179, 0.1);
+}

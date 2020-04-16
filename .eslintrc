@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["jsx-a11y", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/destructuring-assignment": "off",
+    "quotes": "warn",
+    "semi": "warn",
+    "indent": "warn",
+    // "indent-legacy": "warn",
+    "no-trailing-spaces": "warn",
+    "comma-dangle": "warn"
+  }
+}
