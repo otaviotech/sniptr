@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Space, message } from 'antd';
-import { v4 as uuidv4 } from 'uuid';
+import SnippetRepository from '../../repositories/snippet';
 import SnippetEditor from '../../components/SnippetEditor/SnippetEditor';
 import SnippetList from '../../components/SnippetList/SnippetList';
 
@@ -8,20 +8,23 @@ class SnippetsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      snippets: new Array(10)
-        .fill()
-        .map((x, i) => ({
-          id: uuidv4(),
-          body:
-          'function greet' + i + ' (name) {\n  return `Hello, ${name}.`;\n}', // eslint-disable-line
-        })),
-
+      snippets: [],
       snippet: {
-        id: uuidv4(),
+        id: undefined,
         body: '',
       },
     };
-    this.snippetInput = React.createRef();
+  }
+
+  componentDidMount() {
+    this.fetchSnippets();
+  }
+
+  fetchSnippets = () => {
+    SnippetRepository.getAll()
+      .then((snippets) => {
+        this.setState({ snippets });
+      });
   }
 
   onChangeBody = (body) => {
@@ -36,7 +39,7 @@ class SnippetsList extends Component {
   resetSnippet = () => {
     this.setState({
       snippet: {
-        id: uuidv4(),
+        id: undefined,
         body: '',
       },
     });
@@ -47,39 +50,28 @@ class SnippetsList extends Component {
   };
 
   deleteSnippetHandler = (id) => {
-    this.setState((prevState) => ({
-      snippets: prevState.snippets.filter((s) => s.id !== id),
-    }));
-
-    message.success('Snippet successfuly deleted.');
+    SnippetRepository.delete(id)
+      .then(() => {
+        this.fetchSnippets();
+        message.success('Snippet successfuly deleted.');
+      });
   };
 
   changeSnippetHandler = (changedSnippet) => {
-    this.setState(
-      (prevState) => ({
-        snippets: prevState.snippets.map((snippet) => {
-          if (snippet.id !== changedSnippet.id) {
-            return snippet;
-          }
-
-          return changedSnippet;
-        }),
-      }),
-      () => {
+    SnippetRepository.update(changedSnippet)
+      .then(() => {
         this.resetSnippet();
         message.success('Snippet successfuly saved.');
-      },
-    );
+      });
   };
 
   addSnippet = (snippet) => {
-    this.setState((prevState) => ({
-      snippets: [snippet, ...prevState.snippets],
-    }));
-
-    this.resetSnippet();
-
-    message.success('Snippet successfuly added.');
+    SnippetRepository.create(snippet)
+      .then(() => {
+        this.resetSnippet();
+        this.fetchSnippets();
+        message.success('Snippet successfuly added.');
+      });
   };
 
   render() {
