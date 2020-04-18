@@ -24,6 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "yarn run eslint ./src --ext .js",
+    "lint:fix": "yarn run lint --fix",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
