@@ -14,7 +14,13 @@ body {
 }
 
 .ant-layout-header h1 {
+  display: inline-block;
   /* color: #fff; */
+}
+
+.ant-layout-header span {
+  color: #ccc;
+  float: right;
 }
 
 .ant-layout-content {

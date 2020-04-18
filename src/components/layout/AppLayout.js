@@ -11,6 +11,7 @@ export default function AppLayout(props) {
     <Layout>
       <Header>
         <h1>{'<Sniptr />'}</h1>
+        <span>by <a href="https://github.com/otaviotech" target="_blank">Otávio Araújo</a></span>
       </Header>
       <Content>{props.children}</Content>
       <Footer />
