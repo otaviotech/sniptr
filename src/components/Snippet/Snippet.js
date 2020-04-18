@@ -71,6 +71,7 @@ class Snippet extends Component {
         <SnippetEditor
           value={this.props.snippet.body}
           onChange={this.onChangeBodyHandler}
+	  debounceDelay={800}
           placeholder="Your <Awesome /> snippet."
         />
       </Card>

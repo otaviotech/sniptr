@@ -15,7 +15,7 @@ function SnippetEditor(props) {
       mode="javascript"
       theme="tomorrow"
       width="100%"
-      onChange={debounce(props.onChange, 1000)}
+      onChange={debounce(props.onChange, props.debounceDelay)}
       value={props.value}
       name="UNIQUE_ID_OF_DIV"
       placeholder={props.placeholder}
@@ -43,8 +43,13 @@ function SnippetEditor(props) {
 
 SnippetEditor.propTypes = {
   onChange: PropTypes.func.isRequired,
+  debounceDelay: PropTypes.number,
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+};
+
+SnippetEditor.defaultProps = {
+  debounceDelay: 300,
 };
 
 export default SnippetEditor;
