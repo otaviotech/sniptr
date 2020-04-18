@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Space, message } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
-import SnippetEditor from '../../components/SnippetEditor';
-import SnippetList from '../../components/SnippetList';
+import SnippetEditor from '../../components/SnippetEditor/SnippetEditor';
+import SnippetList from '../../components/SnippetList/SnippetList';
 
 class SnippetsList extends Component {
   constructor(props) {

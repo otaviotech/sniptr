@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-import Snippet from './Snippet';
+import Snippet from '../Snippet/Snippet';
 
 function SnippetList(props) {
   return (

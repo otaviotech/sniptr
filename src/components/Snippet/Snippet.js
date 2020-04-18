@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Button, Tooltip, Popconfirm } from 'antd';
 import { DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 
-import SnippetEditor from './SnippetEditor';
+import SnippetEditor from '../SnippetEditor/SnippetEditor';
 
 const CARD_TAB = {
   VIEW: 'VIEW',
