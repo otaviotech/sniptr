@@ -23,7 +23,9 @@ SnippetList.propTypes = {
   snippets: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.string,
+      name: PropTypes.string,
       body: PropTypes.string.isRequired,
+      programmingLanguageId: PropTypes.string,
     }),
   ).isRequired,
   onDelete: PropTypes.func.isRequired,

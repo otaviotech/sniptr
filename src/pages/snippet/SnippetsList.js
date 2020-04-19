@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Space, message } from 'antd';
+import { debounce } from 'debounce';
 import SnippetRepository from '../../repositories/snippet';
 import SnippetEditor from '../../components/SnippetEditor/SnippetEditor';
 import SnippetList from '../../components/SnippetList/SnippetList';
@@ -11,7 +12,9 @@ class SnippetsList extends Component {
       snippets: [],
       snippet: {
         id: undefined,
+        name: '',
         body: '',
+        programmingLanguageId: undefined,
       },
     };
   }
@@ -57,12 +60,25 @@ class SnippetsList extends Component {
       });
   };
 
-  changeSnippetHandler = (changedSnippet) => {
-    SnippetRepository.update(changedSnippet)
+  updateSnippet = debounce((snippet) => { // eslint-disable-line
+    SnippetRepository.update(snippet)
       .then(() => {
-        this.resetSnippet();
         message.success('Snippet successfuly saved.');
       });
+  }, 1000)
+
+  changeSnippetHandler = (changedSnippet) => {
+    this.setState((prevState) => {
+      const updatedSnippets = prevState.snippets.map((oldSnippet) => {
+        return oldSnippet.id === changedSnippet.id
+          ? changedSnippet
+          : oldSnippet;
+      });
+
+      return { snippets: updatedSnippets };
+    });
+
+    this.updateSnippet(changedSnippet);
   };
 
   addSnippet = (snippet) => {

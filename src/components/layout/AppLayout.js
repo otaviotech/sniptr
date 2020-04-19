@@ -6,12 +6,20 @@ import PropTypes from 'prop-types';
 
 const { Header, Footer, Content } = Layout;
 
-export default function AppLayout(props) {
+function AppLayout(props) {
   return (
     <Layout>
       <Header>
         <h1>{'<Sniptr />'}</h1>
-        <span>by <a href="https://github.com/otaviotech" target="_blank">Otávio Araújo</a></span>
+        <span>
+          by
+          <a
+            href="https://github.com/otaviotech" target="_blank"
+            rel="noopener noreferrer"
+          >
+            Otávio Araújo
+          </a>
+        </span>
       </Header>
       <Content>{props.children}</Content>
       <Footer />
@@ -22,3 +30,6 @@ export default function AppLayout(props) {
 AppLayout.propTypes = {
   children: PropTypes.object,
 };
+
+export default AppLayout;
+

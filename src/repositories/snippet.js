@@ -1,15 +1,6 @@
-import FirebaseClient from './firebaseClient.js';
+import FirebaseClient, { mapResponseWithFirebaseIds } from './firebaseClient';
 
-function mapFirebaseIds (collection) {
-  return Object
-    .keys(collection)
-    .map((key)=> ({
-      ...collection[key],
-      id: key,
-    }));
-}
-
-const getAll = () => FirebaseClient.get('/snippets.json').then(res => mapFirebaseIds(res.data));
+const getAll = () => FirebaseClient.get('/snippets.json').then(mapResponseWithFirebaseIds);
 
 const create = (snippet) => FirebaseClient.post('/snippets.json', snippet);
 
