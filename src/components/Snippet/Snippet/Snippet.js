@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Button, Tooltip, Popconfirm } from 'antd';
 import { DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 
-import ProgrammingLanguageSelector from '../ProgrammingLanguageSelector/ProgrammingLanguageSelector';
+import ProgrammingLanguageSelector from '../../ProgrammingLanguageSelector/ProgrammingLanguageSelector';
 import SnippetForm from '../SnippetForm/SnippetForm';
 import SnippetEditor from '../SnippetEditor/SnippetEditor';
 

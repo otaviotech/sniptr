@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Row, Col, Button, Space, message } from 'antd';
 import { debounce } from 'debounce';
 import SnippetRepository from '../../repositories/snippet';
-import SnippetEditor from '../../components/SnippetEditor/SnippetEditor';
-import SnippetList from '../../components/SnippetList/SnippetList';
+import SnippetEditor from '../../components/Snippet/SnippetEditor/SnippetEditor';
+import SnippetList from '../../components/Snippet/SnippetList/SnippetList';
 
 class SnippetsList extends Component {
   constructor(props) {
