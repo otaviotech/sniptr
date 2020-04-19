@@ -4,7 +4,7 @@ import AppLayout from './components/layout/AppLayout';
 
 function App() {
   return (
-		<BrowserRouter>
+		<BrowserRouter basename={process.env.PUBLIC_URL}>
 			<AppLayout />
 		</BrowserRouter>
   );
