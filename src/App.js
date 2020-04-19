@@ -1,12 +1,12 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
-import SnippetsList from './pages/snippet/SnippetsList';
 
 function App() {
   return (
-    <AppLayout>
-      <SnippetsList />
-    </AppLayout>
+		<BrowserRouter>
+			<AppLayout />
+		</BrowserRouter>
   );
 }
 

@@ -1,10 +1,16 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
-import React from 'react';
-import { Layout } from 'antd';
+import React, { Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Layout } from 'antd';
+
+const SnippetsList = React.lazy(() => import('../../pages/snippet/SnippetsList'));
+const SnippetEditPage = React.lazy(() => import('../../pages/snippet/SnippetEditPage/SnippetEditPage'));
 
 const { Header, Footer, Content } = Layout;
+
+const Loading = () => <div>Loading...</div>;
 
 function AppLayout(props) {
   return (
@@ -21,7 +27,26 @@ function AppLayout(props) {
           </a>
         </span>
       </Header>
-      <Content>{props.children}</Content>
+      <Content>
+        <Switch>
+          <Route path="/snippets" exact render={() => (
+            <Suspense fallback={<Loading />}>
+              <SnippetsList />
+            </Suspense>
+          )} />
+          <Route path="/" exact render={() => (
+            <Suspense fallback={<Loading />}>
+              <SnippetsList />
+            </Suspense>
+          )} />
+          <Route path="/snippets/:snippetId" exact render={() => (
+            <Suspense fallback={<Loading />}>
+              <SnippetEditPage />
+            </Suspense>
+          )} />
+          <Route render={() => <h1>404 - Not found.</h1>} />
+        </Switch>
+      </Content>
       <Footer />
     </Layout>
   );

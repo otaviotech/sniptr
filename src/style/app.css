@@ -6,6 +6,7 @@ html {
 
 body {
   font-family: inherit;
+  background-color: #f0f2f5;
 }
 
 .ant-layout-header {
@@ -15,7 +16,6 @@ body {
 
 .ant-layout-header h1 {
   display: inline-block;
-  /* color: #fff; */
 }
 
 .ant-layout-header span {
@@ -23,6 +23,9 @@ body {
   float: right;
 }
 
+.ant-layout-header span a {
+  margin-left: 0.2rem;
+}
 .ant-layout-content {
   padding: 30px 50px;
 }

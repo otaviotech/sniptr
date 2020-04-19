@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button, Tooltip, Popconfirm } from 'antd';
-import { DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Tooltip, Popconfirm, Space } from 'antd';
+import { DeleteOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 
 import ProgrammingLanguageSelector from '../../ProgrammingLanguageSelector/ProgrammingLanguageSelector';
 import SnippetForm from '../SnippetForm/SnippetForm';
@@ -77,21 +77,30 @@ class Snippet extends Component {
   render() {
     return (
       <Card
-        title={this.props.snippet.name || `Snippet ${this.props.snippet.id}`}
+        title={this.props.snippet.name || 'Unnamed Snippet'}
         tabList={tabList}
         onTabChange={(currentTab) => this.setState({ currentTab })}
         activeTabKey={this.state.currentTab}
         tabBarExtraContent={
-          <Tooltip title="Delete">
-            <Popconfirm
-              placement="topLeft"
-              title="Are you sure？"
-              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-              onConfirm={this.props.onDelete}
-            >
-              <Button type="danger" icon={<DeleteOutlined />} />
-            </Popconfirm>
-          </Tooltip>
+          <Space>
+            <Tooltip title="Edit">
+              <Button
+                type="default"
+                icon={<EditOutlined />}
+                href={`/snippets/${this.props.snippet.id}`}
+              />
+            </Tooltip>
+            <Tooltip title="Delete">
+              <Popconfirm
+                placement="topLeft"
+                title="Are you sure？"
+                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                onConfirm={this.props.onDelete}
+              >
+                <Button type="danger" icon={<DeleteOutlined />} />
+              </Popconfirm>
+            </Tooltip>
+          </Space>
         }
       >
         {this.state.currentTab === CARD_TAB.VIEW && (

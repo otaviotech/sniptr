@@ -10,7 +10,24 @@ export function mapFirebaseIds (collection) {
 }
 
 export function mapResponseWithFirebaseIds (response) {
+  if (!response.data) {
+    return [];
+  }
+
   return mapFirebaseIds(response.data);
+}
+
+export function mapResponseWithFirebaseId(id) {
+  return (response) => {
+    if (!response.data){
+      return response.data;
+    }
+
+    return {
+      ...response.data,
+      id,
+    };
+  };
 }
 
 const FirebaseClient = axios.create({
