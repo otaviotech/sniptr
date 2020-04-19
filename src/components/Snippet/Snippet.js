@@ -27,7 +27,7 @@ class Snippet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTab: CARD_TAB.EDIT,
+      currentTab: CARD_TAB.VIEW,
     };
   }
 
