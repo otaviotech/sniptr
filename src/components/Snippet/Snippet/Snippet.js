@@ -8,6 +8,11 @@ import ProgrammingLanguageSelector from '../../ProgrammingLanguageSelector/Progr
 import SnippetForm from '../SnippetForm/SnippetForm';
 import SnippetEditor from '../SnippetEditor/SnippetEditor';
 
+export const COMPONENT_MODE = {
+  FULL: 'FULL',
+  COMPACT: 'COMPACT',
+};
+
 const CARD_TAB = {
   VIEW: 'VIEW',
   EDIT: 'EDIT',
@@ -84,16 +89,18 @@ class Snippet extends Component {
         activeTabKey={this.state.currentTab}
         tabBarExtraContent={
           <Space>
-            <Tooltip title="Edit">
-              <Link
-                to={`snippets/${this.props.snippet.id}`}
-              >
-                <Button
-                  type="default"
-                  icon={<EditOutlined />}
-                />
-              </Link>
-            </Tooltip>
+            {this.props.mode === COMPONENT_MODE.COMPACT && (
+              <Tooltip title="Edit">
+                <Link
+                  to={`snippets/${this.props.snippet.id}`}
+                >
+                  <Button
+                    type="default"
+                    icon={<EditOutlined />}
+                  />
+                </Link>
+              </Tooltip>
+            )}
             <Tooltip title="Delete">
               <Popconfirm
                 placement="topLeft"
@@ -133,6 +140,10 @@ class Snippet extends Component {
   }
 }
 
+Snippet.defaultProps = {
+  mode: COMPONENT_MODE.FULL,
+};
+
 Snippet.propTypes = {
   snippet: PropTypes.exact({
     id: PropTypes.string,
@@ -140,6 +151,7 @@ Snippet.propTypes = {
     body: PropTypes.string,
     programmingLanguageId: PropTypes.string,
   }).isRequired,
+  mode: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 };

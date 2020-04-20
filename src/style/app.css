@@ -18,6 +18,11 @@ body {
   display: inline-block;
 }
 
+.ant-layout-header h1 a {
+  text-decoration: none;
+  color: #000;
+}
+
 .ant-layout-header span {
   color: #ccc;
   float: right;
