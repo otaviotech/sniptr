@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card, Button, Tooltip, Popconfirm, Space } from 'antd';
 import { DeleteOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons';
@@ -84,11 +85,14 @@ class Snippet extends Component {
         tabBarExtraContent={
           <Space>
             <Tooltip title="Edit">
-              <Button
-                type="default"
-                icon={<EditOutlined />}
-                href={`/snippets/${this.props.snippet.id}`}
-              />
+              <Link
+                to={`snippets/${this.props.snippet.id}`}
+              >
+                <Button
+                  type="default"
+                  icon={<EditOutlined />}
+                />
+              </Link>
             </Tooltip>
             <Tooltip title="Delete">
               <Popconfirm

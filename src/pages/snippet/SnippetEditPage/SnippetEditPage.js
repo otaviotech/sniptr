@@ -52,6 +52,7 @@ class SnippetEditPage extends Component {
     SnippetRepository.update(this.state.snippet)
       .then(() => {
         message.success('Snippet successfuly saved.');
+        this.redirectToListingPage();
       });
   }, 300)
 
