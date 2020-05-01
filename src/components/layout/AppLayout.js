@@ -5,7 +5,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 
-const SnippetsList = React.lazy(() => import('../../pages/snippet/SnippetsList'));
+const SnippetsList = React.lazy(() => import('../../pages/snippet/SnippetsList/SnippetsList'));
 const SnippetEditPage = React.lazy(() => import('../../pages/snippet/SnippetEditPage/SnippetEditPage'));
 
 const { Header, Footer, Content } = Layout;
