@@ -13,6 +13,7 @@ function SnippetList(props) {
             mode={SNIPPET_COMPONENT_MODE.COMPACT}
             onDelete={() => props.onDelete(snippet.id)}
             onChange={props.onChangeSnippet}
+            onSave={props.onSaveSnippet}
           />
         </Col>
       ))}
@@ -31,6 +32,7 @@ SnippetList.propTypes = {
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
   onChangeSnippet: PropTypes.func.isRequired,
+  onSaveSnippet: PropTypes.func.isRequired,
 };
 
 export default SnippetList;

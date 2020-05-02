@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card, Button, Tooltip, Popconfirm, Space } from 'antd';
-import { DeleteOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, QuestionCircleOutlined, SaveOutlined } from '@ant-design/icons';
 
 import ProgrammingLanguageSelector from '../../ProgrammingLanguageSelector/ProgrammingLanguageSelector';
 import SnippetForm from '../SnippetForm/SnippetForm';
@@ -25,7 +25,7 @@ const tabList = [
   },
   {
     key: CARD_TAB.EDIT,
-    tab: 'Edit',
+    tab: 'Edit details',
   },
 ];
 
@@ -90,27 +90,39 @@ class Snippet extends Component {
         tabBarExtraContent={
           <Space>
             {this.props.mode === COMPONENT_MODE.COMPACT && (
-              <Tooltip title="Edit">
-                <Link
-                  to={`snippets/${this.props.snippet.id}`}
-                >
+              <>
+                <Tooltip title="Save">
                   <Button
-                    type="default"
-                    icon={<EditOutlined />}
+                    type="primary"
+                    icon={<SaveOutlined />}
+                    onClick={() => this.props.onSave(this.props.snippet)}
                   />
-                </Link>
+                </Tooltip>
+                <Tooltip title="Edit">
+                  <Link
+                    to={`snippets/${this.props.snippet.id}`}
+                  >
+                    <Button
+                      type="default"
+                      icon={<EditOutlined />}
+                    />
+                  </Link>
+                </Tooltip>
+              </>
+            )}
+
+            { !this.props.withoutDeleteButton && (
+              <Tooltip title="Delete">
+                <Popconfirm
+                  placement="topLeft"
+                  title="Are you sure？"
+                  icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                  onConfirm={this.props.onDelete}
+                >
+                  <Button type="danger" icon={<DeleteOutlined />} />
+                </Popconfirm>
               </Tooltip>
             )}
-            <Tooltip title="Delete">
-              <Popconfirm
-                placement="topLeft"
-                title="Are you sure？"
-                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                onConfirm={this.props.onDelete}
-              >
-                <Button type="danger" icon={<DeleteOutlined />} />
-              </Popconfirm>
-            </Tooltip>
           </Space>
         }
       >
@@ -142,6 +154,7 @@ class Snippet extends Component {
 
 Snippet.defaultProps = {
   mode: COMPONENT_MODE.FULL,
+  withoutDeleteButton: false,
 };
 
 Snippet.propTypes = {
@@ -152,8 +165,10 @@ Snippet.propTypes = {
     programmingLanguageId: PropTypes.string,
   }).isRequired,
   mode: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
+  withoutDeleteButton: PropTypes.bool,
+  onDelete: PropTypes.func, // eslint-disable-line
   onChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func, // eslint-disable-line
 };
 
 export default Snippet;

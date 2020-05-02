@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Row, Col, Button, Space, Spin, message } from 'antd';
 import { debounce } from 'debounce';
-import SnippetEditor from '../../../components/Snippet/SnippetEditor/SnippetEditor';
 import SnippetList from '../../../components/Snippet/SnippetList/SnippetList';
-import { setLoading, fetchSnippets, updateSnippet, createSnippet, deleteSnippet } from '../../../store/modules/snippet/actions';
+import Snippet from '../../../components/Snippet/Snippet/Snippet';
+import * as actionCreators from '../../../store/modules/snippet/actions';
 
 const getEmptySnippet = () => ({
   id: undefined,
@@ -17,7 +18,6 @@ class SnippetsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFetchingSnippets: false,
       snippet: getEmptySnippet(),
     };
   }
@@ -39,7 +39,10 @@ class SnippetsList extends Component {
 
   onChangeBody = (body) => {
     this.setState((prevState) => ({
-      snippet: getEmptySnippet(),
+      snippet: {
+        ...prevState.snippet,
+        body,
+      },
     }));
   };
 
@@ -47,10 +50,6 @@ class SnippetsList extends Component {
     this.setState({
       snippet: getEmptySnippet(),
     });
-  };
-
-  addSnippetHandler = () => {
-    this.addSnippet(this.state.snippet);
   };
 
   deleteSnippetHandler = (id) => {
@@ -69,7 +68,7 @@ class SnippetsList extends Component {
       });
   };
 
-  updateSnippet = debounce((snippet) => { // eslint-disable-line
+  saveSnippet = debounce((snippet) => { // eslint-disable-line
     const { updateSnippet } = this.props;
 
     updateSnippet(snippet)
@@ -81,11 +80,7 @@ class SnippetsList extends Component {
 
         message.success('Snippet successfuly saved.');
       });
-  }, 1000)
-
-  changeSnippetHandler = (changedSnippet) => {
-    this.updateSnippet(changedSnippet);
-  };
+  }, 500)
 
   addSnippet = (snippet) => {
     const { createSnippet, fetchSnippets } = this.props;
@@ -109,13 +104,12 @@ class SnippetsList extends Component {
 
     const loadingMessage = this.props.loading
       ? (
-        <Row justify="center">
-          <Col>
-            <Spin size="large" tip="Loading your snippets" style={{ margin: '50px auto' }} />
-          </Col>
-        </Row>
-      )
-      : null;
+        <Spin
+          size="large"
+          tip="Loading your snippets"
+          style={{ textAlign: 'center', width: '100%', margin: '20px 0' }}
+        />
+      ) : null;
 
     return (
       <Space direction="vertical" style={{ width: '100%' }}>
@@ -126,10 +120,10 @@ class SnippetsList extends Component {
         </Row>
         <Row gutter={16}>
           <Col xs={24}>
-            <SnippetEditor
-              value={this.state.snippet.body}
-              onChange={this.onChangeBody}
-              placeholder="Your <Awesome /> snippet..."
+            <Snippet
+              withoutDeleteButton
+              snippet={this.state.snippet}
+              onChange={(snippet) => this.setState({ snippet })}
             />
           </Col>
         </Row>
@@ -138,7 +132,7 @@ class SnippetsList extends Component {
           <Col>
             <Button
               type="primary"
-              onClick={this.addSnippetHandler}
+              onClick={() => this.addSnippet(this.state.snippet)}
               disabled={isAddButtonDisabled}
             >
               Add snippet!
@@ -155,8 +149,9 @@ class SnippetsList extends Component {
           </Row>
           <SnippetList
             snippets={this.props.snippets}
-            onChangeSnippet={this.changeSnippetHandler}
+            onChangeSnippet={this.props.setUpdatedSnippet}
             onDelete={this.deleteSnippetHandler}
+            onSaveSnippet={this.saveSnippet}
           />
         </section>
       </Space>
@@ -164,17 +159,29 @@ class SnippetsList extends Component {
   }
 }
 
+SnippetsList.propTypes = {
+  snippets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  setUpdatedSnippet: PropTypes.func.isRequired,
+  createSnippet: PropTypes.func.isRequired,
+  fetchSnippets: PropTypes.func.isRequired,
+  updateSnippet: PropTypes.func.isRequired,
+  deleteSnippet: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   snippets: state.snippet.snippets,
   loading: state.snippet.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setLoading: (loading) => dispatch(setLoading(loading)),
-  fetchSnippets: () => dispatch(fetchSnippets()),
-  createSnippet: (snippet) => dispatch(createSnippet(snippet)),
-  updateSnippet: (snippet) => dispatch(updateSnippet(snippet)),
-  deleteSnippet: (snippetId) => dispatch(deleteSnippet(snippetId)),
+  setLoading: (loading) => dispatch(actionCreators.setLoading(loading)),
+  fetchSnippets: () => dispatch(actionCreators.fetchSnippets()),
+  setUpdatedSnippet: (snippet) => dispatch(actionCreators.setUpdatedSnippet(snippet)),
+  createSnippet: (snippet) => dispatch(actionCreators.createSnippet(snippet)),
+  updateSnippet: (snippet) => dispatch(actionCreators.updateSnippet(snippet)),
+  deleteSnippet: (snippetId) => dispatch(actionCreators.deleteSnippet(snippetId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SnippetsList);
