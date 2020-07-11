@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 import * as actionTypes from './actionTypes';
 import SnippetRepository from '../../../repositories/snippet';
 

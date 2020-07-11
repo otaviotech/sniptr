@@ -12,6 +12,11 @@ const { Header, Footer, Content } = Layout;
 
 const Loading = () => <div>Loading...</div>;
 
+const lazyRender = (LazyComponent) => () => (
+  <Suspense fallback={<Loading />}>
+    <LazyComponent />
+  </Suspense>
+)
 function AppLayout(props) {
   return (
     <Layout>
@@ -33,21 +38,9 @@ function AppLayout(props) {
       </Header>
       <Content>
         <Switch>
-          <Route path="/snippets" exact render={() => (
-            <Suspense fallback={<Loading />}>
-              <SnippetsList />
-            </Suspense>
-          )} />
-          <Route path="/" exact render={() => (
-            <Suspense fallback={<Loading />}>
-              <SnippetsList />
-            </Suspense>
-          )} />
-          <Route path="/snippets/:snippetId" exact render={() => (
-            <Suspense fallback={<Loading />}>
-              <SnippetEditPage />
-            </Suspense>
-          )} />
+          <Route path="/app" exact render={lazyRender(SnippetsList)} />
+          <Route path="/app/snippets" exact render={lazyRender(SnippetsList)} />
+          <Route path="/app/snippets/:snippetId" exact render={lazyRender(SnippetEditPage)} />
           <Route render={() => <h1>404 - Not found.</h1>} />
         </Switch>
       </Content>

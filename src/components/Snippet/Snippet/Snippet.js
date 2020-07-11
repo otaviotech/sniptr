@@ -100,7 +100,7 @@ class Snippet extends Component {
                 </Tooltip>
                 <Tooltip title="Edit">
                   <Link
-                    to={`snippets/${this.props.snippet.id}`}
+                    to={`/app/snippets/${this.props.snippet.id}`}
                   >
                     <Button
                       type="default"

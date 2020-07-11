@@ -31,7 +31,7 @@ class SnippetEditPage extends Component {
   }
 
   redirectToListingPage = () => {
-    this.props.history.replace('/snippets');
+    this.props.history.replace('/app/snippets');
   }
 
   deleteSnippetHandler = () => {

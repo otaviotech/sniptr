@@ -1,0 +1,46 @@
+.AuthPage {
+  h1.logo {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .login-card {
+    // @media screen and(min-width: 576px) {
+    //   max-width: 90%;
+    // }
+
+    @media screen and(min-width: 768px) {
+      max-width: 60%;
+    }
+
+    @media screen and(min-width: 992px) {
+      max-width: 50%;
+    }
+
+    @media screen and(min-width: 1200px) {
+      max-width: 30%;
+    }
+
+    // @media screen and(min-width: 1600px) {
+    //   max-width: 30%;
+    // }
+
+    margin: 0 auto;
+
+    .ant-card-head-title {
+      .logo {
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    .action {
+      text-align: center;
+      width: 100%;
+      .ant-radio-button-wrapper {
+        width: 50%;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
